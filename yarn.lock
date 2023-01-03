@@ -6513,6 +6513,14 @@ expo-modules-autolinking@1.0.1, expo-modules-autolinking@~1.0.0:
     find-up "^5.0.0"
     fs-extra "^9.1.0"
 
+expo-modules-core@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/expo-modules-core/-/expo-modules-core-1.0.4.tgz#0f3c7feaa3a625680e22941f9000ae3f2bb7b5a1"
+  integrity sha512-Cf2G8f2h3TGASKNDYXlOwe5CBMmRt32wZzBAmau6qComw0e13Y9sDYORSfgk+NJWvLnHJrInN4qGytxHfal/aA==
+  dependencies:
+    compare-versions "^3.4.0"
+    invariant "^2.2.4"
+
 expo-modules-core@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/expo-modules-core/-/expo-modules-core-1.1.0.tgz#0a3b8f77cf74e2621a1c8096304f22a99dea0bbe"
