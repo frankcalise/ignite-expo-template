@@ -14,13 +14,12 @@
       "backgroundColor": "#191015"
     },
     "updates": {
+      "checkAutomatically": "ON_ERROR_RECOVERY",
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/64e47580-4d83-40b0-8b58-a366e3769ca0"
     },
     "jsEngine": "hermes",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "android": {
       "icon": "./assets/images/app-icon-android-legacy.png",
       "package": "com.frankcalise.igniteexpo",
