@@ -15,11 +15,11 @@ export const UpdateScreen: React.FunctionComponent<AppStackScreenProps<"Update">
     const restart = async () => await Updates.reloadAsync()
 
     React.useEffect(() => {
-      // TODO do a check for updates here again due to navigation state being persisted
-      // or first go back from this screen so app restarts in the proper spot
       async function downloadAppUpdate() {
         setIsLoading(true)
         try {
+          // do a check for updates here again due to navigation state being persisted
+          // or first go back from this screen so app restarts in the proper spot
           const results = await Updates.checkForUpdateAsync()
           if (!results.isAvailable) {
             navigation.goBack()
