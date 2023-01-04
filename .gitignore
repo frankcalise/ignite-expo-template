@@ -83,3 +83,5 @@ web-build/
 
 # Configurations
 !env.js
+build/
+dist/
