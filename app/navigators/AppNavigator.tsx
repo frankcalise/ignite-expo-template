@@ -10,19 +10,24 @@ import {
   NavigationContainer,
   NavigatorScreenParams, // @demo remove-current-line
 } from "@react-navigation/native"
+import * as Device from "expo-device"
+import * as Updates from "expo-updates"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { StackScreenProps } from "@react-navigation/stack"
 import { observer } from "mobx-react-lite"
 import React from "react"
-import { useColorScheme } from "react-native"
+import { Platform, useColorScheme } from "react-native"
 import Config from "../config"
+import { useAppState } from "../hooks"
 import { useStores } from "../models" // @demo remove-current-line
 import {
   LoginScreen, // @demo remove-current-line
   WelcomeScreen,
 } from "../screens"
+import { UpdateScreen } from "../screens/UpdateScreen"
 import { DemoNavigator, DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
+import { Banner } from "../components"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -42,6 +47,7 @@ export type AppStackParamList = {
   Login: undefined // @demo remove-current-line
   Demo: NavigatorScreenParams<DemoTabParamList> // @demo remove-current-line
   // 🔥 Your screens go here
+  Update: undefined
 }
 
 /**
@@ -85,6 +91,7 @@ const AppStack = observer(function AppStack() {
       )}
       {/* @demo remove-block-end */}
       {/** 🔥 Your screens go here */}
+      <Stack.Screen name="Update" component={UpdateScreen} />
     </Stack.Navigator>
   )
 })
@@ -93,8 +100,22 @@ interface NavigationProps extends Partial<React.ComponentProps<typeof Navigation
 
 export const AppNavigator = observer(function AppNavigator(props: NavigationProps) {
   const colorScheme = useColorScheme()
+  const [bannerVisible, setBannerVisible] = React.useState(false)
 
   useBackButtonHandler((routeName) => exitRoutes.includes(routeName))
+
+  useAppState({
+    match: /background/,
+    nextAppState: "active",
+    callback: async () => {
+      if (Device.isDevice) {
+        const results = await Updates.checkForUpdateAsync()
+        if (results.isAvailable) {
+          setBannerVisible(true)
+        }
+      }
+    },
+  })
 
   return (
     <NavigationContainer
@@ -103,6 +124,18 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
       {...props}
     >
       <AppStack />
+      <Banner
+        action={{
+          title: "Update available",
+          onPress: () => {
+            setBannerVisible(false)
+            navigationRef.navigate("Update")
+          },
+        }}
+        visible={bannerVisible}
+      >
+        There is an update available for this app, click to update the app now.
+      </Banner>
     </NavigationContainer>
   )
 })

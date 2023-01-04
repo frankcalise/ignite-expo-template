@@ -5,6 +5,9 @@ const en = {
     back: "Back",
     logOut: "Log Out", // @demo remove-current-line
   },
+  updateScreen: {
+    title: "App Updates",
+  },
   welcomeScreen: {
     postscript:
       "psst  — This probably isn't what your app looks like. (Unless your designer handed you these screens, and in that case, ship it!)",
